@@ -1,0 +1,26 @@
+name: Website Scans
+
+on:
+  workflow_dispatch: {}
+  schedule:
+  - cron: '30 11 * * *'
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sites:
+        - https://ginandjuice.shop/
+        - https://portswigger-labs.net/
+    steps:
+    - name: Scan Site
+      uses: PortSwigger/dastardly-github-action@main
+      with:
+        target-url: ${{ matrix.sites }}
+    - name: Process Report
+      if: always()
+      uses: mikepenz/action-junit-report@v3
+      with:
+        report_paths: '**/dastardly-report.xml'
+        require_tests: true
