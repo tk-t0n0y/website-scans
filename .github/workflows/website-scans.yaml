@@ -13,7 +13,7 @@ jobs:
       matrix:
         sites:
         - https://ginandjuice.shop/
-        - https://portswigger-labs.net/
+        - https://gdc.gov.bd/
     steps:
     - name: Scan Site
       uses: PortSwigger/dastardly-github-action@main
